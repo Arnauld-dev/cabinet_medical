@@ -13,12 +13,9 @@ class AnalyseLaboratoireController extends Controller
      */
     public function index()
     {
-        $analyses = AnalyseLaboratoire::with([
-            'patient',
-            'consultation'
-        ])
-        ->orderBy('datePrescription', 'desc')
-        ->get();
+        $analyses = AnalyseLaboratoire::with(['patient','consultation' ])
+                                        ->orderBy('datePrescription', 'desc')
+                                        ->get();
 
         return response()->json([
             'success' => true,
@@ -32,58 +29,20 @@ class AnalyseLaboratoireController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'idAnalyse' => [
-                'required',
-                'integer',
-                'unique:analyse_laboratoire,idAnalyse'
-            ],
-
-            'idPatient' => [
-                'required',
-                'integer',
-                'exists:patients,idPatient'
-            ],
-
-            'idConsultation' => [
-                'required',
-                'integer',
-                'exists:consultations,idConsultation'
-            ],
-
-            'typeAnalyse' => [
-                'required',
-                'string',
-                'max:255'
-            ],
-
-            'datePrescription' => [
-                'required',
-                'date'
-            ],
-
-            'laboratoire' => [
-                'required',
-                'string',
-                'max:255'
-            ],
-
-            'resultat' => [
-                'nullable',
-                'string'
-            ],
-
-            'dateResultat' => [
-                'nullable',
-                'date'
-            ],
+            'idAnalyse' => ['required','integer','unique:analyse_laboratoire,idAnalyse' ],
+            'idPatient' => ['required','integer','exists:patients,idPatient'],
+            'idConsultation' => ['required','integer','exists:consultations,idConsultation'],
+            'typeAnalyse' => ['required','string','max:255'],
+            'datePrescription' => ['required','date'],
+            'laboratoire' => ['required','string','max:255'],
+            'resultat' => ['nullable','string'],
+            'dateResultat' => ['nullable','date'],
         ]);
+
 
         $analyse = AnalyseLaboratoire::create($validated);
 
-        $analyse->load([
-            'patient',
-            'consultation'
-        ]);
+        $analyse->load([ 'patient','consultation']);
 
         return response()->json([
             'success' => true,
@@ -95,7 +54,7 @@ class AnalyseLaboratoireController extends Controller
     /**
      * Afficher une analyse
      */
-    public function show($id)
+    public function show(int $id)
     {
         $analyse = AnalyseLaboratoire::with([
             'patient',
@@ -118,69 +77,32 @@ class AnalyseLaboratoireController extends Controller
     /**
      * Modifier une analyse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         $analyse = AnalyseLaboratoire::find($id);
 
         if (!$analyse) {
+
             return response()->json([
                 'success' => false,
                 'message' => 'Analyse de laboratoire introuvable'
             ], 404);
         }
 
+
         $validated = $request->validate([
-            'idPatient' => [
-                'sometimes',
-                'required',
-                'integer',
-                'exists:patients,idPatient'
-            ],
-
-            'idConsultation' => [
-                'sometimes',
-                'required',
-                'integer',
-                'exists:consultations,idConsultation'
-            ],
-
-            'typeAnalyse' => [
-                'sometimes',
-                'required',
-                'string',
-                'max:255'
-            ],
-
-            'datePrescription' => [
-                'sometimes',
-                'required',
-                'date'
-            ],
-
-            'laboratoire' => [
-                'sometimes',
-                'required',
-                'string',
-                'max:255'
-            ],
-
-            'resultat' => [
-                'nullable',
-                'string'
-            ],
-
-            'dateResultat' => [
-                'nullable',
-                'date'
-            ],
+            'idPatient' => ['sometimes','required','integer','exists:patients,idPatient'],
+            'idConsultation' => ['sometimes','required','integer','exists:consultations,idConsultation'],
+            'typeAnalyse' => ['sometimes','required','string','max:255'],
+            'datePrescription' => ['sometimes','required','date'],
+            'laboratoire' => ['sometimes','required','string','max:255'],
+            'resultat' => ['nullable','string'],
+            'dateResultat' => ['nullable','date'],
         ]);
 
         $analyse->update($validated);
 
-        $analyse->load([
-            'patient',
-            'consultation'
-        ]);
+        $analyse->load(['patient','consultation' ]);
 
         return response()->json([
             'success' => true,
@@ -192,7 +114,7 @@ class AnalyseLaboratoireController extends Controller
     /**
      * Supprimer une analyse
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $analyse = AnalyseLaboratoire::find($id);
 
