@@ -46,10 +46,6 @@ class Facture extends Model
 
     public function paiements(): HasMany
     {
-        return $this->hasMany(
-            Paiement::class,
-            'idFacture',
-            'idFacture'
-        );
+        return $this->hasMany( Paiement::class, 'idFacture', 'idFacture' );
     }
 }

@@ -14,11 +14,51 @@ class AuthController extends Controller
     // Inscription
     public function register(Request $request)
     {
+        return response()->json([
+            'message' => 'Les inscriptions publiques sont désactivées. Contactez l’administrateur.',
+        ], 403);
+    }
+
+    /**
+     * Créer un compte médecin.
+     * Réservé à l'administrateur par les routes API.
+     */
+    public function creerMedecin(Request $request)
+    {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
-            'role' => 'sometimes|in:administrateur,medecin,secretaire',
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'role' => 'medecin',
+        ]);
+
+        return response()->json([
+            'message' => 'Compte médecin créé avec succès.',
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => $user->role,
+            ],
+        ], 201);
+    }
+
+    /**
+     * Créer un compte secrétaire.
+     * Réservé à l'administrateur par les routes API.
+     */
+    public function creerSecretaire(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
 
@@ -26,15 +66,17 @@ class AuthController extends Controller
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
-            'role' => $validated['role'] ?? 'secretaire',
+            'role' => 'secretaire',
         ]);
 
-        $token = $user->createToken('cabinet-medical')->plainTextToken;
-
         return response()->json([
-            'message' => 'Inscription réussie.',
-            'user' => $user,
-            'token' => $token,
+            'message' => 'Compte secrétaire créé avec succès.',
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => $user->role,
+            ],
         ], 201);
     }
 

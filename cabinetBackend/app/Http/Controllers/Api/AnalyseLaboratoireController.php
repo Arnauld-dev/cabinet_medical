@@ -39,7 +39,6 @@ class AnalyseLaboratoireController extends Controller
             'dateResultat' => ['nullable','date'],
         ]);
 
-
         $analyse = AnalyseLaboratoire::create($validated);
 
         $analyse->load([ 'patient','consultation']);
@@ -47,19 +46,16 @@ class AnalyseLaboratoireController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Analyse de laboratoire créée avec succès',
-            'data' => $analyse
-        ], 201);
+            'data' => $analyse], 201);
     }
 
     /**
      * Afficher une analyse
      */
+
     public function show(int $id)
     {
-        $analyse = AnalyseLaboratoire::with([
-            'patient',
-            'consultation.rendezVous.medecin'
-        ])->find($id);
+        $analyse = AnalyseLaboratoire::with(['patient','consultation.rendezVous.medecin'])->find($id);
 
         if (!$analyse) {
             return response()->json([
@@ -67,6 +63,7 @@ class AnalyseLaboratoireController extends Controller
                 'message' => 'Analyse de laboratoire introuvable'
             ], 404);
         }
+
 
         return response()->json([
             'success' => true,

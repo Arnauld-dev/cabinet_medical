@@ -12,7 +12,7 @@ class StockMedicament extends Model
 
     protected $primaryKey = 'idStock';
 
-    public $incrementing = false;
+    public $incrementing = true;
 
     protected $keyType = 'int';
 

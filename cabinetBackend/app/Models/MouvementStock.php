@@ -11,7 +11,7 @@ class MouvementStock extends Model
 
     protected $primaryKey = 'idMouvement';
 
-    public $incrementing = false;
+    public $incrementing = true;
 
     protected $keyType = 'int';
 
