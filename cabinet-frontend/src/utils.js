@@ -78,3 +78,10 @@ export function messageErreur(err, messageParDefaut) {
   }
   return err.response?.data?.message || messageParDefaut;
 }
+
+// "photos/abc.jpg" -> "http://localhost:8000/storage/photos/abc.jpg"
+export function urlPhoto(photo) {
+  if (!photo) return null;
+  const adresseServeur = import.meta.env.VITE_API_URL.replace(/\/api\/?$/, "");
+  return adresseServeur + "/storage/" + photo;
+}

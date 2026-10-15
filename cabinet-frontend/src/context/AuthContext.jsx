@@ -29,8 +29,15 @@ export function AuthProvider({ children }) {
     setUser(null);
   }
 
+  // Met à jour l'utilisateur (après un changement de photo, de nom...)
+  function mettreAJourUser(nouveau) {
+    const fusion = { ...user, ...nouveau };
+    localStorage.setItem("user", JSON.stringify(fusion));
+    setUser(fusion);
+  }
+
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, mettreAJourUser }}>
       {children}
     </AuthContext.Provider>
   );

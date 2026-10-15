@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import api from "../api";
 import { useAuth } from "../context/AuthContext";
+import Avatar from "../components/Avatar";
 import { nomDuRole } from "../menus";
 import { formaterDate, messageErreur } from "../utils";
 
@@ -186,8 +187,13 @@ export default function Utilisateurs() {
               {utilisateurs.map((u) => (
                 <tr key={u.id}>
                   <td>
-                    {u.name}
-                    {u.id === moi.id && <span className="gris"> (vous)</span>}
+                    <div className="utilisateur-nom">
+                      <Avatar nom={u.name} photo={u.photo} />
+                      <span>
+                        {u.name}
+                        {u.id === moi.id && <span className="gris"> (vous)</span>}
+                      </span>
+                    </div>
                   </td>
                   <td>{u.email}</td>
                   <td><span className="badge bleu">{nomDuRole[u.role] || u.role}</span></td>

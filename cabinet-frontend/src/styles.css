@@ -235,3 +235,10 @@ input:disabled { background: var(--fond); color: var(--gris); }
 }
 
 .badge.rouge { background: #fee2e2; color: #991b1b; margin-right: 4px; display: inline-block; }
+
+/* ----- Photo de profil et paramètres ----- */
+.avatar { overflow: hidden; }
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+.photo-zone { display: flex; align-items: center; gap: 20px; }
+.photo-zone p { margin: 8px 0 0; }
+.utilisateur-nom { display: flex; align-items: center; gap: 10px; }

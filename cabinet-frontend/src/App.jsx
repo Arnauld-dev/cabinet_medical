@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ListePage from "./pages/ListePage";
 import Utilisateurs from "./pages/Utilisateurs";
-import Profil from "./pages/Profil";
+import Parametres from "./pages/Parametres";
 import ConsultationsPage from "./pages/ConsultationsPage";
 import FacturesPage from "./pages/FacturesPage";
 import { colonnesStock, colonnesMouvements } from "./colonnes";
@@ -48,7 +48,7 @@ export default function App() {
             }
           >
             <Route index element={<Dashboard />} />
-            <Route path="profil" element={<Profil />} />
+            <Route path="parametres" element={<Parametres />} />
             <Route path="utilisateurs" element={<Utilisateurs />} />
             <Route path="consultations" element={<ConsultationsPage />} />
             <Route path="factures" element={<FacturesPage />} />

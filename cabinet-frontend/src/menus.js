@@ -3,7 +3,7 @@
 import {
   LayoutDashboard, Users, Stethoscope, CalendarDays, ClipboardList,
   Activity, Pill, Receipt, CreditCard, FlaskConical, Package,
-  ArrowLeftRight, UserCog, User,
+  ArrowLeftRight, UserCog, Settings,
 } from "lucide-react";
 
 const dashboard = { nom: "Dashboard", chemin: "/", icone: LayoutDashboard };
@@ -20,21 +20,21 @@ const analyses = { nom: "Analyses", chemin: "/analyses-laboratoire", icone: Flas
 const stock = { nom: "Stock", chemin: "/stock-medicaments", icone: Package };
 const mouvements = { nom: "Mouvements", chemin: "/mouvements-stock", icone: ArrowLeftRight };
 const utilisateurs = { nom: "Utilisateurs", chemin: "/utilisateurs", icone: UserCog };
-const profil = { nom: "Mon profil", chemin: "/profil", icone: User };
+const parametres = { nom: "Paramètres", chemin: "/parametres", icone: Settings };
 
 export const menus = {
   administrateur: [
     dashboard, patients, medecins, rendezVous, consultations, diagnostics,
     prescriptions, medicaments, factures, paiements, analyses, stock,
-    mouvements, utilisateurs,
+    mouvements, utilisateurs, parametres,
   ],
   medecin: [
     dashboard, patients, rendezVous, consultations, diagnostics,
-    prescriptions, analyses, profil,
+    prescriptions, analyses, parametres,
   ],
   secretaire: [
     dashboard, patients, rendezVous, consultations, factures, paiements,
-    medicaments, stock, mouvements,
+    medicaments, stock, mouvements, parametres,
   ],
 };
 

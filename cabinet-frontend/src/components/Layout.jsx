@@ -1,10 +1,10 @@
 // La structure commune : barre latérale à gauche + en-tête en haut.
 import { useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { Bell, ChevronDown, LogOut, User } from "lucide-react";
+import { Bell, ChevronDown, LogOut, Settings } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { menus, nomDuRole } from "../menus";
-import { initiales } from "../utils";
+import Avatar from "./Avatar";
 
 export default function Layout() {
   const { user, logout } = useAuth();
@@ -14,7 +14,7 @@ export default function Layout() {
 
   function allerAuProfil() {
     setMenuOuvert(false);
-    navigate("/profil");
+    navigate("/parametres");
   }
 
   return (
@@ -45,7 +45,7 @@ export default function Layout() {
 
           <div className="profil-zone">
             <button className="profil-bouton" onClick={() => setMenuOuvert(!menuOuvert)}>
-              <span className="avatar">{initiales(user.name)}</span>
+              <Avatar nom={user.name} photo={user.photo} />
               <span className="profil-texte">
                 <strong>{user.name}</strong>
                 <small>{nomDuRole[user.role] || user.role}</small>
@@ -56,7 +56,7 @@ export default function Layout() {
             {menuOuvert && (
               <div className="menu-deroulant">
                 <button onClick={allerAuProfil}>
-                  <User size={15} /> Mon profil
+                  <Settings size={15} /> Paramètres
                 </button>
                 <button onClick={logout}>
                   <LogOut size={15} /> Se déconnecter
