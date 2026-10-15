@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nom');
             $table->string('prenom');
             $table->date('dateNaissance');
-            $table->string('adresse');
+            $table->string('adresse')->nullable();
             $table->string('telephone');
             $table->timestamps();
         });
