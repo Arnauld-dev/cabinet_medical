@@ -1,11 +1,4 @@
 <?php
-// À copier dans routes/api.php de votre projet Laravel (faites une copie de l'ancien fichier avant).
-//
-// Pourquoi ? Dans l'ancien fichier, les mêmes Route::apiResource étaient déclarées
-// dans plusieurs groupes de rôles. Laravel garde seulement la DERNIÈRE déclaration :
-// l'administrateur ne pouvait plus lire les patients, le médecin ne voyait pas les
-// patients ni les médicaments, etc.
-// Ici : chaque route est déclarée UNE seule fois, avec les rôles autorisés.
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
@@ -22,6 +15,7 @@ use App\Http\Controllers\Api\AnalyseLaboratoireController;
 use App\Http\Controllers\Api\StockMedicamentController;
 use App\Http\Controllers\Api\MouvementStockController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\ProfilController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -30,8 +24,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user', [AuthController::class, 'user']);
 
+    // Paramètres de MON compte (tous les rôles)
+
+    Route::put('/profil', [ProfilController::class, 'modifierProfil']);
+    Route::put('/profil/mot-de-passe', [ProfilController::class, 'changerMotDePasse']);
+    Route::post('/profil/photo', [ProfilController::class, 'changerPhoto']);
+    Route::delete('/profil/photo', [ProfilController::class, 'supprimerPhoto']);
+
+
     // 1) LECTURE pour tous les rôles connectés
-    //    (nécessaire aussi pour remplir les listes déroulantes du frontend)
+
     Route::apiResource('patients', PatientController::class)->only(['index', 'show']);
     Route::apiResource('medecins', MedecinController::class)->only(['index', 'show']);
     Route::apiResource('rendez-vous', RendezVousController::class)->only(['index', 'show']);

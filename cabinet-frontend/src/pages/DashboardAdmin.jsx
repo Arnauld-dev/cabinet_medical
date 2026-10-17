@@ -3,9 +3,7 @@ import { Users, Stethoscope, CalendarDays, Receipt } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { getListe } from "../api";
 import StatCard from "../components/StatCard";
-import {
-  aujourdhui, partieDate, formaterDateHeure, formaterMontant, nomComplet,
-} from "../utils";
+import {aujourdhui, partieDate, formaterDateHeure, formaterMontant, nomComplet,} from "../utils";
 
 // Prépare les n derniers mois : [{ cle: "2026-10", nom: "oct.", total: 0 }, ...]
 function derniersMois(n) {

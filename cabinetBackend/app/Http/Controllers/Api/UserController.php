@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -16,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::select('id', 'name', 'email', 'role', 'created_at')
+        $users = User::select('id', 'name', 'email', 'role', 'photo', 'created_at')
                      ->orderBy('id', 'desc')
                      ->get();
 
@@ -99,6 +100,11 @@ class UserController extends Controller
         }
 
         $user->tokens()->delete(); // déconnecte l'utilisateur supprimé
+
+        if ($user->photo) {
+            Storage::disk('public')->delete($user->photo);
+        }
+
         $user->delete();
 
         return response()->json([
