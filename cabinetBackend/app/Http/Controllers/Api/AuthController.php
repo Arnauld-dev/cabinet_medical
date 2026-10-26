@@ -97,21 +97,15 @@ class AuthController extends Controller
 
         $token = $user->createToken('cabinet-medical')->plainTextToken;
 
-        return response()->json([
-            'message' => 'Connexion réussie.',
-            'user' => $user,
-            'token' => $token,
-        ]);
+        return response()->json(['message' => 'Connexion réussie.','user' => $user,'token' => $token,]);
     }
 
     // Déconnexion
+
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
-
-        return response()->json([
-            'message' => 'Déconnexion réussie.',
-        ]);
+        return response()->json(['message' => 'Déconnexion réussie.',]);
     }
 
     // Utilisateur connecté

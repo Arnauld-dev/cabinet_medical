@@ -2,7 +2,7 @@
 // couleur : "bleu", "vert" ou "rouge"
 export default function StatCard({ titre, valeur, Icone, couleur = "bleu" }) {
   return (
-    <div className="carte stat">
+    <div className="carte stat" >
       <span className={"stat-icone " + couleur}>
         <Icone size={18} />
       </span>

@@ -14,13 +14,16 @@ export default function Login() {
 
   async function envoyer(e) {
     e.preventDefault(); // empêche le rechargement de la page
+    
     setErreur("");
     try {
       await login(email, password);
       navigate("/");
     } catch (err) {
       const message = err.response?.data?.errors?.email?.[0];
+
       setErreur(message || "Connexion impossible. Le serveur est-il lancé ?");
+
     }
   }
 

@@ -3,7 +3,7 @@ import { Users, Stethoscope, CalendarDays, Receipt } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { getListe } from "../api";
 import StatCard from "../components/StatCard";
-import {aujourdhui, partieDate, formaterDateHeure, formaterMontant, nomComplet,} from "../utils";
+import { aujourdhui, partieDate, formaterDateHeure, formaterMontant, nomComplet, } from "../utils";
 
 // Prépare les n derniers mois : [{ cle: "2026-10", nom: "oct.", total: 0 }, ...]
 function derniersMois(n) {
@@ -66,9 +66,9 @@ export default function DashboardAdmin() {
 
       <div className="grille-stats">
         <StatCard titre="Total patients" valeur={patients.length} Icone={Users} />
-        <StatCard titre="Total médecins" valeur={medecins.length} Icone={Stethoscope} couleur="vert" />
+        <StatCard titre="Total médecins" valeur={medecins.length} Icone={Stethoscope} />
         <StatCard titre="Rendez-vous du jour" valeur={rdvDuJour.length} Icone={CalendarDays} />
-        <StatCard titre="Factures impayées" valeur={impayees.length} Icone={Receipt} couleur="rouge" />
+        <StatCard titre="Factures impayées" valeur={impayees.length} Icone={Receipt} />
       </div>
 
       <div className="carte">

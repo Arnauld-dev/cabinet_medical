@@ -17,10 +17,7 @@ class AnalyseLaboratoireController extends Controller
                                         ->orderBy('datePrescription', 'desc')
                                         ->get();
 
-        return response()->json([
-            'success' => true,
-            'data' => $analyses
-        ]);
+        return response()->json(['success' => true,'data' => $analyses]);
     }
 
     /**
@@ -43,10 +40,7 @@ class AnalyseLaboratoireController extends Controller
 
         $analyse->load([ 'patient','consultation']);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Analyse de laboratoire créée avec succès',
-            'data' => $analyse], 201);
+        return response()->json([ 'success' => true,'message' => 'Analyse de laboratoire créée avec succès','data' => $analyse], 201);
     }
 
     /**
@@ -78,12 +72,9 @@ class AnalyseLaboratoireController extends Controller
     {
         $analyse = AnalyseLaboratoire::find($id);
 
+        // Vérifier si l'analyse existe
         if (!$analyse) {
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Analyse de laboratoire introuvable'
-            ], 404);
+            return response()->json(['success' => false,'message' => 'Analyse de laboratoire introuvable'], 404);
         }
 
 
@@ -101,11 +92,7 @@ class AnalyseLaboratoireController extends Controller
 
         $analyse->load(['patient','consultation' ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Analyse de laboratoire modifiée avec succès',
-            'data' => $analyse
-        ]);
+        return response()->json([ 'success' => true, 'message' => 'Analyse de laboratoire modifiée avec succès', 'data' => $analyse]);
     }
 
     /**
